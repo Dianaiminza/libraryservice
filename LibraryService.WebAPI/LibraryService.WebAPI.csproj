@@ -15,5 +15,6 @@
 		  <PrivateAssets>all</PrivateAssets>
 	  </PackageReference>
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
   </ItemGroup>
 </Project>
