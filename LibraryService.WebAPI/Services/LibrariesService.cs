@@ -55,11 +55,6 @@ namespace LibraryService.WebAPI.Services
         public async Task<bool> Delete(Library library)
         {
             var projectForChanges = await _libraryContext.Libraries.SingleOrDefaultAsync(x => x.Id == library.Id);
-
-            if (projectForChanges == null)
-            {
-            return NotFound();
-            }
             _libraryContext.Libraries.Remove(projectForChanges);
             await _libraryContext.SaveChangesAsync();
           return true;

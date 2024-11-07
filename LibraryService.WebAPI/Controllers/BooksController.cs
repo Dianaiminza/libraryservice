@@ -22,11 +22,7 @@ namespace LibraryService.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBooks(int libraryId, [FromQuery] int[] ids)
         {
-        var books = await _bookService.Get(libraryId, ids);
-        if (books == null || books.Count == 0)
-        {
-            return NotFound;
-        }
+        var books = await _booksService.Get(libraryId, ids);
         return Ok(books);
         }
 
