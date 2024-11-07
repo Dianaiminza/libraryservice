@@ -24,7 +24,8 @@ namespace LibraryService.WebAPI
         {
             // Add support for Dependency Injection for internal services (BooksService and LibrariesService)
 
-            
+            services.Addscoped<IBooksService,BooksService>();
+            services.Addscoped<ILibrariesService,LibrariesService>();
             services.AddDbContext<LibraryContext>(options => options.UseInMemoryDatabase("librarydb"));
             services.AddControllers();
         }
