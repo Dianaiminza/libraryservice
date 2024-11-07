@@ -17,26 +17,61 @@ namespace LibraryService.WebAPI.Services
 
         public async Task<IEnumerable<Book>> Get(int libraryId, int[] ids)
         {
-            // Complete the implementation
-            throw new NotImplementedException();
+            var books = await _libraryContext.Books
+                                      .Where(b => b.LibraryId == libraryId && ids.Contains(b.Id))
+                                      .ToListAsync();
+
+          return books; 
         }
 
         public async Task<Book> Add(Book book)
         {
-            // Complete the implementation
-            throw new NotImplementedException();
+             await _libraryContext.Books.AddAsync(book);
+              await _libraryContext.SaveChangesAsync();
+              return book;
         }
 
         public async Task<Book> Update(Book book)
         {
-            // Complete the implementation
-            throw new NotImplementedException();
+         var existingBook = await _libraryContext.Books
+         .FirstOrDefaultAsync(b => b.Id == book.Id);
+
+          if (existingBook == null)
+           {
+         return NotFound();
+           }
+            existingBook.Name = book.Name;
+            existingBook.Category = book.Category;
+            existingBook.LibraryId = book.LibraryId; 
+
+         // Save changes to the database
+        await _libraryContext.SaveChangesAsync();
+
+         // Return the updated book entity
+         return existingBook;
         }
 
         public async Task<bool> Delete(Book book)
         {
-            // Complete the implementation
-            throw new NotImplementedException();
+            if (book == null)
+             {
+              return NotFound();
+           }
+             var existingBook = await _libraryContext.Books
+        .FirstOrDefaultAsync(b => b.Id == book.Id);
+
+          if (existingBook == null)
+         {
+        return NotFound();
+         }
+
+          _libraryContext.Books.Remove(existingBook);
+
+   
+         await _libraryContext.SaveChangesAsync();
+
+    
+         return true;
         }
     }
 

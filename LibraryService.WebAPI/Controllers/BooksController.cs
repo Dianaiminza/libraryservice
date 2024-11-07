@@ -19,6 +19,22 @@ namespace LibraryService.WebAPI.Controllers
             _booksService = booksService;
         }
 
-        // Implement the functionalities below
+        [HttpGet]
+        public async Task<IActionResult> GetBooks(int libraryId, [FromQuery] int[] ids)
+        {
+        var books = await _bookService.Get(libraryId, ids);
+        if (books == null || books.Count == 0)
+        {
+            return NotFound;
+        }
+        return Ok(books);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBooks(Book l)
+        {
+            await _booksService.Add(l);
+            return Ok(l);
+        }
     }
 }
